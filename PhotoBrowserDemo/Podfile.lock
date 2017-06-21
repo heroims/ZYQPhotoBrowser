@@ -1,0 +1,24 @@
+PODS:
+  - DACircularProgress (2.3.1)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - ZYQPhotoBrowser (1.0):
+    - DACircularProgress
+    - SDWebImage (= 4.0.0)
+
+DEPENDENCIES:
+  - ZYQPhotoBrowser (from `../ZYQPhotoBrowser.podspec`)
+
+EXTERNAL SOURCES:
+  ZYQPhotoBrowser:
+    :path: "../ZYQPhotoBrowser.podspec"
+
+SPEC CHECKSUMS:
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  ZYQPhotoBrowser: f4f759fee12d96e65dc748fd34fb2f17cfe4b401
+
+PODFILE CHECKSUM: 5b774d863eeb3db615c36607156d6f08cc21a306
+
+COCOAPODS: 1.2.1
