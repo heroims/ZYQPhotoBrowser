@@ -103,6 +103,7 @@
     browser.useZoomAnimation = true;
     browser.scaleImage = sender.currentImage;
     browser.dismissOnTouch = true;
+    browser.displayTitle= YES;
     
     [self presentViewController:browser animated:YES completion:nil];
 
@@ -240,6 +241,9 @@
             browser.progressTintColor       = [UIColor orangeColor];
             browser.trackTintColor          = [UIColor colorWithWhite:0.8 alpha:1];
 
+        }
+        else{
+            browser.displayToolbar=NO;
         }
     }
     [self presentViewController:browser animated:YES completion:nil];

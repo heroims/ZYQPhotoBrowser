@@ -35,6 +35,9 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     // Buttons
     UIButton *_doneButton;
 
+    // Title
+    UILabel *_titleLabel;
+
 	// Toolbar
 	UIToolbar *_toolbar;
 	UIBarButtonItem *_previousButton, *_nextButton, *_actionButton;
@@ -140,7 +143,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 @implementation ZYQPhotoBrowser
 
 // Properties
-@synthesize displayDoneButton = _displayDoneButton, displayToolbar = _displayToolbar, displayActionButton = _displayActionButton, displayCounterLabel = _displayCounterLabel, useWhiteBackgroundColor = _useWhiteBackgroundColor, doneButtonImage = _doneButtonImage;
+@synthesize displayDoneButton = _displayDoneButton, displayTitle=_displayTitle, displayToolbar = _displayToolbar, displayActionButton = _displayActionButton, displayCounterLabel = _displayCounterLabel, useWhiteBackgroundColor = _useWhiteBackgroundColor, doneButtonImage = _doneButtonImage;
 @synthesize leftArrowImage = _leftArrowImage, rightArrowImage = _rightArrowImage, leftArrowSelectedImage = _leftArrowSelectedImage, rightArrowSelectedImage = _rightArrowSelectedImage, actionButtonImage = _actionButtonImage, actionButtonSelectedImage = _actionButtonSelectedImage;
 @synthesize displayArrowButton = _displayArrowButton, actionButtonTitles = _actionButtonTitles;
 @synthesize arrowButtonsChangePhotosAnimated = _arrowButtonsChangePhotosAnimated;
@@ -172,6 +175,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         _autoHideInterface = YES;
 
         _displayDoneButton = YES;
+        _displayTitle=NO;
         _doneButtonImage = nil;
 
         _displayToolbar = YES;
@@ -629,6 +633,21 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         [_doneButton setImage:_doneButtonImage forState:UIControlStateNormal];
         _doneButton.contentMode = UIViewContentModeScaleAspectFit;
     }
+    
+    _titleLabel = [[UILabel alloc] init];
+    [_titleLabel setFrame:[self frameForTitleLabelAtOrientation:currentOrientation]];
+    [_titleLabel setAlpha:1.0f];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.backgroundColor = [UIColor clearColor];
+    [_titleLabel setFont:[UIFont boldSystemFontOfSize:17]];
+    if(_useWhiteBackgroundColor == NO) {
+        _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.shadowColor = [UIColor darkTextColor];
+        _titleLabel.shadowOffset = CGSizeMake(0, 1);
+    }
+    else {
+        _titleLabel.textColor = [UIColor blackColor];
+    }
 
     UIImage *leftButtonImage = (_leftArrowImage == nil) ?
     [UIImage imageNamed:@"ZYQPhotoBrowser.bundle/images/ZYQPhotoBrowser_arrowLeft.png"]          : _leftArrowImage;
@@ -725,6 +744,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     _recycledPages = nil;
     _toolbar = nil;
     _doneButton = nil;
+    _titleLabel = nil;
     _previousButton = nil;
     _nextButton = nil;
 
@@ -773,7 +793,9 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     // Done button
     _doneButton.frame = [self frameForDoneButtonAtOrientation:currentOrientation];
 
-
+    // Title label
+    _titleLabel.frame = [self frameForTitleLabelAtOrientation:currentOrientation];
+    
     // Remember index
 	NSUInteger indexPriorToLayout = _currentPageIndex;
 
@@ -822,10 +844,14 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         [_toolbar removeFromSuperview];
     }
 
+    // Title
+    if(_displayTitle && !self.navigationController.navigationBar)
+        [self.view addSubview:_titleLabel];
+
     // Close button
     if(_displayDoneButton && !self.navigationController.navigationBar)
         [self.view addSubview:_doneButton];
-
+    
     // Toolbar items & navigation
     UIBarButtonItem *fixedLeftSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                                                                     target:self action:nil];
@@ -1136,6 +1162,16 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     return CGRectMake(screenWidth - self.doneButtonRightInset - self.doneButtonSize.width, self.doneButtonTopInset, self.doneButtonSize.width, self.doneButtonSize.height);
 }
 
+- (CGRect)frameForTitleLabelAtOrientation:(UIInterfaceOrientation)orientation {
+    CGRect screenBound = self.view.bounds;
+    CGFloat screenWidth = screenBound.size.width;
+    CGFloat statusBarBottom=[UIApplication sharedApplication].statusBarFrame.origin.y+[UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    // if ([self isLandscape:orientation]) screenWidth = screenBound.size.height;
+    
+    return CGRectMake(0, statusBarBottom, screenWidth, 44);
+}
+
 - (CGRect)frameForCaptionView:(ZYQCaptionView *)captionView atIndex:(NSUInteger)index {
     CGRect pageFrame = [self frameForPageAtIndex:index];
 
@@ -1183,12 +1219,25 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 #pragma mark - Toolbar
 
 - (void)updateToolbar {
+    //Title
+    if ([_delegate respondsToSelector:@selector(photoBrowser:titleForPhotoAtIndex:)]) {
+        _titleLabel.text=[_delegate photoBrowser:self titleForPhotoAtIndex:_currentPageIndex];
+    }
+    else{
+        _titleLabel.text=ZYQPhotoBrowserLocalizedStrings(@"PhotoBrowser");
+    }
+    
     // Counter
-	if ([self numberOfPhotos] > 1) {
-		_counterLabel.text = [NSString stringWithFormat:@"%lu %@ %lu", (unsigned long)(_currentPageIndex+1), ZYQPhotoBrowserLocalizedStrings(@"of"), (unsigned long)[self numberOfPhotos]];
-	} else {
-		_counterLabel.text = nil;
-	}
+    if ([_delegate respondsToSelector:@selector(photoBrowser:counterForPhotoAtIndex:)]) {
+        _counterLabel.text=[_delegate photoBrowser:self counterForPhotoAtIndex:_currentPageIndex];
+    }
+    else{
+        if ([self numberOfPhotos] > 1) {
+            _counterLabel.text = [NSString stringWithFormat:@"%lu %@ %lu", (unsigned long)(_currentPageIndex+1), ZYQPhotoBrowserLocalizedStrings(@"of"), (unsigned long)[self numberOfPhotos]];
+        } else {
+            _counterLabel.text = nil;
+        }
+    }
 
 	// Buttons
 	_previousButton.enabled = (_currentPageIndex > 0);
@@ -1237,6 +1286,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         [self.navigationController.navigationBar setAlpha:alpha];
         [_toolbar setAlpha:alpha];
         [_doneButton setAlpha:alpha];
+        [_titleLabel setAlpha:alpha];
         for (UIView *v in captionViews) v.alpha = alpha;
     } completion:^(BOOL finished) {}];
 

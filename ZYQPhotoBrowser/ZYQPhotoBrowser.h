@@ -24,6 +24,9 @@
 - (void)photoBrowser:(ZYQPhotoBrowser *)photoBrowser didDismissAtPageIndex:(NSUInteger)index;
 - (void)photoBrowser:(ZYQPhotoBrowser *)photoBrowser willDismissAtPageIndex:(NSUInteger)index;
 - (void)photoBrowser:(ZYQPhotoBrowser *)photoBrowser didDismissActionSheetWithButtonIndex:(NSUInteger)buttonIndex photoIndex:(NSUInteger)photoIndex;
+- (NSString *)photoBrowser:(ZYQPhotoBrowser *)photoBrowser counterForPhotoAtIndex:(NSUInteger)index;
+- (NSString *)photoBrowser:(ZYQPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSUInteger)index;
+
 - (ZYQCaptionView *)photoBrowser:(ZYQPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index;
 - (void)photoBrowser:(ZYQPhotoBrowser *)photoBrowser imageFailed:(NSUInteger)index imageView:(ZYQTapDetectingImageView *)imageView;
 @end
@@ -46,6 +49,7 @@
 
 // View customization
 @property (nonatomic) BOOL displayDoneButton;
+@property (nonatomic) BOOL displayTitle;
 @property (nonatomic) BOOL useWhiteBackgroundColor;
 @property (nonatomic, weak) UIImage *doneButtonImage;
 @property (nonatomic, weak) UIColor *trackTintColor, *progressTintColor;
