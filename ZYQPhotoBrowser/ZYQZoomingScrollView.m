@@ -310,7 +310,7 @@
 	[NSObject cancelPreviousPerformRequestsWithTarget:_photoBrowser];
 	
 	// Zoom
-	if (self.zoomScale == self.maximumDoubleTapZoomScale) {
+	if (round(self.zoomScale*100000) == round(self.maximumDoubleTapZoomScale*100000)) {
 		
 		// Zoom out
 		[self setZoomScale:self.minimumZoomScale animated:YES];
@@ -319,7 +319,7 @@
 		
 		// Zoom in
 		CGSize targetSize = CGSizeMake(self.frame.size.width / self.maximumDoubleTapZoomScale, self.frame.size.height / self.maximumDoubleTapZoomScale);
-		CGPoint targetPoint = CGPointMake(touchPoint.x - targetSize.width / 2, touchPoint.y - targetSize.height / 2);
+		CGPoint targetPoint = CGPointMake(touchPoint.x - targetSize.width / 2.0, touchPoint.y - targetSize.height / 2.0);
 		
 		[self zoomToRect:CGRectMake(targetPoint.x, targetPoint.y, targetSize.width, targetSize.height) animated:YES];
 		
