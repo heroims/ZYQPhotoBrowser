@@ -343,6 +343,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         {
             _isdraggingPhoto = NO;
             [self setNeedsStatusBarAppearanceUpdate];
+            [self setControlsHidden:NO animated:YES permanent:YES];
 
             self.view.backgroundColor = [UIColor colorWithWhite:(_useWhiteBackgroundColor ? 1 : 0) alpha:1];
 
