@@ -155,10 +155,10 @@
                 cell.textLabel.text=@"Local photos";
                 break;
             case 1:
-                cell.textLabel.text=@"Photos from Flickr";
+                cell.textLabel.text=@"Photos from Baidu";
                 break;
             case 2:
-                cell.textLabel.text=@"Photos from Flickr - Custom";
+                cell.textLabel.text=@"Photos from Baidu - Custom";
                 break;
 
             default:
