@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>PhotoBrowserCustomCoreDemo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>PhotoBrowserDemo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>84549B3C1EFA48D700888AD8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>84549B921EFBC1A600888AD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

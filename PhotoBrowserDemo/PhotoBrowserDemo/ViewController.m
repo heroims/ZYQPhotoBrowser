@@ -7,7 +7,56 @@
 //
 
 #import "ViewController.h"
+
 #import "ZYQPhotoBrowser.h"
+
+#ifdef CUSTOM
+#import "ZYQPhotoBrowser+Custom.h"
+#import "YYWebImage.h"
+
+@interface BackgroudBlurView : UIView
+
+@property(nonatomic,strong)UIImageView *imgView;
+@property(nonatomic,strong)UIVisualEffectView *maskView;
+
+@end
+
+@implementation BackgroudBlurView
+
+-(instancetype)init{
+    if (self=[super init]) {
+        [self addSubview:self.imgView];
+        [self addSubview:self.maskView];
+    }
+    return self;
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    
+    self.imgView.frame=self.bounds;
+    self.maskView.frame=self.bounds;
+}
+
+-(UIImageView *)imgView{
+    if (_imgView==nil) {
+        _imgView=[[UIImageView alloc] init];
+    }
+    return _imgView;
+}
+
+-(UIVisualEffectView *)maskView{
+    if (_maskView==nil) {
+        UIBlurEffect *beffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+        
+        _maskView = [[UIVisualEffectView alloc]initWithEffect:beffect];
+    }
+    return _maskView;
+}
+
+@end
+#else
+#endif
 
 @interface ViewController ()<ZYQPhotoBrowserDelegate>
 
@@ -245,12 +294,30 @@
             browser.displayToolbar=NO;
         }
     }
+#ifdef CUSTOM
+    browser.customBackgroud=[[BackgroudBlurView alloc] init];
+#else
+#endif
+    
     [self presentViewController:browser animated:YES completion:nil];
     
 }
 
 -(void)photoBrowser:(ZYQPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index{
     ZYQPhoto *photo=[photoBrowser photoAtIndex:index];
+#ifdef CUSTOM
+    BackgroudBlurView *blurView=(BackgroudBlurView*)photoBrowser.customBackgroud;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (photo.underlyingImage) {
+            blurView.imgView.image=photo.underlyingImage;
+        }
+        else{
+            [blurView.imgView yy_setImageWithURL:photo.photoURL options:YYWebImageOptionAllowBackgroundTask];
+        }
+    });
+#else
+#endif
+
     NSLog(@"Did show photoBrowser with photo index: %zi, photo caption: %@",index,photo.caption);
 }
 

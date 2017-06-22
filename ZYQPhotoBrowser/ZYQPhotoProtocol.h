@@ -33,10 +33,11 @@
 @end
 
 //ZYQZoomingScrollView's
+@class ZYQPhotoBrowser;
 @protocol ZYQZoomingScrollViewCustomProtocol <NSObject>
 
 @required
--(id)getCustomProgressView;
+-(id)getCustomProgressViewWithBrowser:(ZYQPhotoBrowser*)browser;
 
 @end
 

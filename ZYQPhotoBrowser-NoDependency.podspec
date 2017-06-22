@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.framework     =  'MessageUI', 'QuartzCore', 'SystemConfiguration', 'MobileCoreServices', 'Security'
   s.source_files  =  'ZYQPhotoBrowser/*.{h,m}'
   s.resources     =  'ZYQPhotoBrowser/ZYQPhotoBrowser.bundle', 'ZYQPhotoBrowser/ZYQPBLocalizations.bundle'
-  s.xcconfig      =  { 'GCC_PREPROCESSOR_DEFINITIONS' => 'NODEPENDENCY=1'}
+  s.xcconfig      =  { 'GCC_PREPROCESSOR_DEFINITIONS' => 'NODEPENDENCY=11111'}
 end

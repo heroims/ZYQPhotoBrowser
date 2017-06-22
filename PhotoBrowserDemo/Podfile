@@ -6,7 +6,9 @@ target 'PhotoBrowserDemo' do
   # use_frameworks!
 
   # Pods for PhotoBrowserDemo
-  pod 'ZYQPhotoBrowser', :path => '../ZYQPhotoBrowser.podspec'
+    #Default core
+    pod 'ZYQPhotoBrowser', :path => '../ZYQPhotoBrowser.podspec'
+
 
   target 'PhotoBrowserDemoTests' do
     inherit! :search_paths
@@ -18,4 +20,13 @@ target 'PhotoBrowserDemo' do
     # Pods for testing
   end
 
+end
+
+target 'PhotoBrowserCustomCoreDemo' do
+
+#NoDependency custom core
+pod 'ZYQPhotoBrowser-NoDependency', :path => '../ZYQPhotoBrowser-NoDependency.podspec'
+pod 'YYWebImage'
+pod 'YYImage/WebP'
+pod 'DACircularProgress'
 end

@@ -61,7 +61,7 @@
 
         // Progress view
         if ([self conformsToProtocol:objc_getProtocol("ZYQZoomingScrollViewCustomProtocol")]) {
-            _progressView=[(ZYQZoomingScrollView<ZYQZoomingScrollViewCustomProtocol>*)self getCustomProgressView];
+            _progressView=[(ZYQZoomingScrollView<ZYQZoomingScrollViewCustomProtocol>*)self getCustomProgressViewWithBrowser:browser];
         }
         else{
 #ifdef NODEPENDENCY

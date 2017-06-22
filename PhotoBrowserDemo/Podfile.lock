@@ -3,22 +3,42 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYImage/WebP (1.0.4):
+    - YYImage/Core
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
   - ZYQPhotoBrowser (1.0):
     - DACircularProgress
     - SDWebImage (= 4.0.0)
+  - ZYQPhotoBrowser-NoDependency (1.0)
 
 DEPENDENCIES:
+  - DACircularProgress
+  - YYImage/WebP
+  - YYWebImage
   - ZYQPhotoBrowser (from `../ZYQPhotoBrowser.podspec`)
+  - ZYQPhotoBrowser-NoDependency (from `../ZYQPhotoBrowser-NoDependency.podspec`)
 
 EXTERNAL SOURCES:
   ZYQPhotoBrowser:
     :path: "../ZYQPhotoBrowser.podspec"
+  ZYQPhotoBrowser-NoDependency:
+    :path: "../ZYQPhotoBrowser-NoDependency.podspec"
 
 SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
   ZYQPhotoBrowser: f4f759fee12d96e65dc748fd34fb2f17cfe4b401
+  ZYQPhotoBrowser-NoDependency: 94c7e339ec93077c3db2f3347ba82088951de3d7
 
-PODFILE CHECKSUM: 5b774d863eeb3db615c36607156d6f08cc21a306
+PODFILE CHECKSUM: 8d9697984782e14f8854bba8eb67f88493814932
 
 COCOAPODS: 1.2.1
