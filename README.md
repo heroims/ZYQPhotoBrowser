@@ -102,7 +102,7 @@ If you want to keep the interface shown when the user is scrolling :
 browser.autoHideInterface = NO;
 ```
 
-You can use a smooth [pop](https://github.com/facebook/pop) animation when presenting and dismissing a photo:
+You can use a smooth zoom animation when presenting and dismissing a photo:
 ``` objective-c
 browser.useZoomAnimation = YES;
 ```
