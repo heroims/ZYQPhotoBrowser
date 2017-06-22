@@ -12,16 +12,18 @@ We've added both user experience and technical features inspired by Facebook's a
 
 See the code snippet below for an example of how to implement the photo browser.
 
-First create a photos array containing IDMPhoto objects:
+First create a photos array containing ZYQPhoto objects:
 
 ``` objective-c
 // URLs array
-NSArray *photosURL = @[[NSURL URLWithString:@"http://farm4.static.flickr.com/3567/3523321514_371d9ac42f_b.jpg"], 
-[NSURL URLWithString:@"http://farm4.static.flickr.com/3629/3339128908_7aecabc34b_b.jpg"], 
-[NSURL URLWithString:@"http://farm4.static.flickr.com/3364/3338617424_7ff836d55f_b.jpg"], 
-[NSURL URLWithString:@"http://farm4.static.flickr.com/3590/3329114220_5fbc5bc92b_b.jpg"]];
+NSArray *photosURL = @[
+                                          [NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1498113175410&di=bd10bcd2b2a45906259f4e823bbf9df6&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F14%2F27%2F45%2F71r58PICmDM_1024.jpg"]
+                                          ,[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1498113236506&di=004225eba24d74087feaeaa9484db047&imgtype=0&src=http%3A%2F%2Fic.topit.me%2Fc%2F3c%2Ff6%2F1110230348da8f63cco.jpg"]
+                                          ,[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1498103182&di=eb660bada9ced24acbc9153464aaedcd&src=http://www.bz55.com/uploads/allimg/141120/139-141120151946.jpg"]
+                                          ,[NSURL URLWithString:@"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1193390964,4181630715&fm=21&gp=0.jpg"]
+                                          ];
     
-// Create an array to store IDMPhoto objects
+// Create an array to store ZYQPhoto objects
 NSMutableArray *photos = [NSMutableArray new];
 
 for (NSURL *url in photosURL) {
@@ -29,7 +31,7 @@ for (NSURL *url in photosURL) {
 	[photos addObject:photo];
 }
 	
-// Or use this constructor to receive an NSArray of IDMPhoto objects from your NSURL objects
+// Or use this constructor to receive an NSArray of ZYQPhoto objects from your NSURL objects
 NSArray *photos = [ZYQPhoto photosWithURLs:photosURL];
 ````
 
@@ -80,7 +82,7 @@ browser.leftArrowSelectedImage = [UIImage imageNamed:@"PhotoBrowser_customArrowL
 browser.rightArrowSelectedImage = [UIImage imageNamed:@"PhotoBrowser_customArrowRightSelected.png"];
 ```
 
-If you want to use custom actions, set the actionButtonTitles array with the titles for the actionSheet. Then, implement the photoBrowser:didDismissActionSheetWithButtonIndex:photoIndex: method, from the IDMPhotoBrowser delegate
+If you want to use custom actions, set the actionButtonTitles array with the titles for the actionSheet. Then, implement the photoBrowser:didDismissActionSheetWithButtonIndex:photoIndex: method, from the ZYQPhotoBrowser delegate
 
 ``` objective-c    
 browser.actionButtonTitles = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4"];
