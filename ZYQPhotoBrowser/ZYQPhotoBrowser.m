@@ -152,6 +152,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 @synthesize disableVerticalSwipe = _disableVerticalSwipe;
 @synthesize dismissOnTouch = _dismissOnTouch;
 @synthesize actionsSheet = _actionsSheet, activityViewController = _activityViewController;
+@synthesize customBackgroud = _customBackgroud;
 @synthesize trackTintColor = _trackTintColor, progressTintColor = _progressTintColor;
 @synthesize delegate = _delegate;
 
@@ -796,6 +797,9 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
     // Title label
     _titleLabel.frame = [self frameForTitleLabelAtOrientation:currentOrientation];
     
+    //Custom Backgroud
+    _customBackgroud.frame=self.view.bounds;
+    
     // Remember index
 	NSUInteger indexPriorToLayout = _currentPageIndex;
 
@@ -891,6 +895,11 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 	if(! _disableVerticalSwipe) {
 		[self.view addGestureRecognizer:_panGesture];
 	}
+    
+    //Custom Backgroud
+    if (_customBackgroud) {
+        [self.view insertSubview:_customBackgroud atIndex:0];
+    }
 }
 
 #pragma mark - Data

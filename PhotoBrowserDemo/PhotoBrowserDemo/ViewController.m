@@ -240,7 +240,6 @@
             browser.view.tintColor          = [UIColor orangeColor];
             browser.progressTintColor       = [UIColor orangeColor];
             browser.trackTintColor          = [UIColor colorWithWhite:0.8 alpha:1];
-
         }
         else{
             browser.displayToolbar=NO;
