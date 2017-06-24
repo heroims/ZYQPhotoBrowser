@@ -67,6 +67,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+#ifdef CUSTOM
+    self.title=@"Custom";
+#else
+    self.title=@"Default";
+#endif
 
     UIView *tableViewFooter=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 426 * 0.9 + 40)];
 
