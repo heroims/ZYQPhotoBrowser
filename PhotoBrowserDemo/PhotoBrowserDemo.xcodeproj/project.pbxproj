@@ -1072,7 +1072,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
-					"NODEPENDENCY=1",
 					"CUSTOM=2",
 				);
 				INFOPLIST_FILE = "PhotoBrowserDemo copy-Info.plist";
