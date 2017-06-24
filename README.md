@@ -10,6 +10,8 @@ We've added both user experience and technical features inspired by Facebook's a
 
 ![Screenshot2](http://heroims.github.io/ZYQPhotoBrowser/Untitled2.gif "Screenshot1") 
 
+![Screenshot2](http://heroims.github.io/ZYQPhotoBrowser/Untitled3.gif "Screenshot1") 
+
 ## Usage
 
 See the code snippet below for an example of how to implement the photo browser.
