@@ -1,8 +1,12 @@
 PODS:
   - DACircularProgress (2.3.1)
+  - FLAnimatedImage (1.0.12)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
+  - SDWebImage/GIF (4.0.0):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
   - YYCache (1.0.4)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
@@ -15,6 +19,7 @@ PODS:
   - ZYQPhotoBrowser (1.0):
     - DACircularProgress
     - SDWebImage (= 4.0.0)
+    - SDWebImage/GIF (= 4.0.0)
   - ZYQPhotoBrowser-NoDependency (1.0)
 
 DEPENDENCIES:
@@ -32,11 +37,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
-  ZYQPhotoBrowser: f4f759fee12d96e65dc748fd34fb2f17cfe4b401
+  ZYQPhotoBrowser: 1b74c28ddc38991e4f1f7e6cabe95608246493f6
   ZYQPhotoBrowser-NoDependency: 94c7e339ec93077c3db2f3347ba82088951de3d7
 
 PODFILE CHECKSUM: 8d9697984782e14f8854bba8eb67f88493814932

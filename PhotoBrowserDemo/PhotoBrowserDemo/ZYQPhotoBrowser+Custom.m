@@ -18,7 +18,7 @@
 
 @end
 
-@interface ZYQPhoto (Custom)<ZYQPhotoCustomDownloadProtocol>
+@interface ZYQPhoto (Custom)<ZYQPhotoCustomLoadProtocol>
 
 @end
 
@@ -34,6 +34,10 @@
             completedBlock(image,error);
         }
     }];
+}
+
+-(id)loadImageWithFile:(NSString *)path{
+    return [YYImage imageWithContentsOfFile:path];
 }
 
 @end

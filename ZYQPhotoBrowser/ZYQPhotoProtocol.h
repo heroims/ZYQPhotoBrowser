@@ -25,10 +25,11 @@
 @end
 
 //ZYQPhoto's
-@protocol ZYQPhotoCustomDownloadProtocol <NSObject>
+@protocol ZYQPhotoCustomLoadProtocol <NSObject>
 
 @required
 -(void)loadImageWithURL:(NSURL*)url updateProgressBlock:(void (^)(CGFloat progress))updateProgressBlock completedBlock:(void (^)(UIImage *image,NSError *error))completedBlock;
+-(id)loadImageWithFile:(NSString *)path;
 
 @end
 

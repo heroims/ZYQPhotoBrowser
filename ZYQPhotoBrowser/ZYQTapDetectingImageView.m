@@ -7,31 +7,28 @@
 //
 
 #import "ZYQTapDetectingImageView.h"
+#import <objc/runtime.h>
+
+#ifdef NODEPENDENCY
+#else
+#import "UIImage+GIF.h"
+#import "FLAnimatedImage.h"
+#endif
 
 @implementation ZYQTapDetectingImageView
 
-@synthesize tapDelegate;
-
-- (id)initWithFrame:(CGRect)frame {
-	if ((self = [super initWithFrame:frame])) {
-		self.userInteractionEnabled = YES;
-	}
-	return self;
+#ifdef NODEPENDENCY
+#else
+-(void)setImage:(UIImage *)image{
+    if (![image isKindOfClass:[UIImage class]]||image.isGIF) {
+        NSLog(@"Gif");
+        self.animatedImage=(FLAnimatedImage*)image;
+    }
+    else{
+        [super setImage:image];
+    }
 }
-
-- (id)initWithImage:(UIImage *)image {
-	if ((self = [super initWithImage:image])) {
-		self.userInteractionEnabled = YES;
-	}
-	return self;
-}
-
-- (id)initWithImage:(UIImage *)image highlightedImage:(UIImage *)highlightedImage {
-	if ((self = [super initWithImage:image highlightedImage:highlightedImage])) {
-		self.userInteractionEnabled = YES;
-	}
-	return self;
-}
+#endif
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [touches anyObject];
@@ -53,18 +50,28 @@
 }
 
 - (void)handleSingleTap:(UITouch *)touch {
-	if ([tapDelegate respondsToSelector:@selector(imageView:singleTapDetected:)])
-		[tapDelegate imageView:self singleTapDetected:touch];
+	if ([self.tapDelegate respondsToSelector:@selector(imageView:singleTapDetected:)])
+		[self.tapDelegate imageView:self singleTapDetected:touch];
 }
 
 - (void)handleDoubleTap:(UITouch *)touch {
-	if ([tapDelegate respondsToSelector:@selector(imageView:doubleTapDetected:)])
-		[tapDelegate imageView:self doubleTapDetected:touch];
+	if ([self.tapDelegate respondsToSelector:@selector(imageView:doubleTapDetected:)])
+		[self.tapDelegate imageView:self doubleTapDetected:touch];
 }
 
 - (void)handleTripleTap:(UITouch *)touch {
-	if ([tapDelegate respondsToSelector:@selector(imageView:tripleTapDetected:)])
-		[tapDelegate imageView:self tripleTapDetected:touch];
+	if ([self.tapDelegate respondsToSelector:@selector(imageView:tripleTapDetected:)])
+		[self.tapDelegate imageView:self tripleTapDetected:touch];
+}
+
+-(void)setTapDelegate:(id<ZYQTapDetectingImageViewDelegate>)tapDelegate{
+    objc_setAssociatedObject(self, @selector(tapDelegate), tapDelegate, OBJC_ASSOCIATION_ASSIGN);
+
+    self.userInteractionEnabled=YES;
+}
+
+-(id<ZYQTapDetectingImageViewDelegate>)tapDelegate{
+    return objc_getAssociatedObject(self, @selector(tapDelegate));
 }
 
 @end

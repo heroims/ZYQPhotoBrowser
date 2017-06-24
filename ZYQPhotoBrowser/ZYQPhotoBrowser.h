@@ -57,6 +57,8 @@
 @property (nonatomic, assign) CGSize doneButtonSize;
 @property (nonatomic, strong) UIView *customBackgroud;
 
+@property (nonatomic, assign) Class gifSupportImageViewClass;
+
 @property (nonatomic, weak) UIImage *scaleImage;
 
 @property (nonatomic) BOOL arrowButtonsChangePhotosAnimated;

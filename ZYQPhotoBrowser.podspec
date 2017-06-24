@@ -12,5 +12,7 @@ Pod::Spec.new do |s|
   s.source_files  =  'ZYQPhotoBrowser/*.{h,m}'
   s.resources     =  'ZYQPhotoBrowser/ZYQPhotoBrowser.bundle', 'ZYQPhotoBrowser/ZYQPBLocalizations.bundle'
   s.dependency       'SDWebImage', '4.0.0'
+  s.dependency       'SDWebImage/GIF', '4.0.0'
+
   s.dependency       'DACircularProgress'
 end

@@ -10,6 +10,13 @@
 #import "ZYQPhotoBrowser.h"
 #import <objc/runtime.h>
 
+#ifdef NODEPENDENCY
+#else
+#import "UIImage+GIF.h"
+#import "FLAnimatedImage.h"
+#import "NSData+ImageContentType.h"
+#endif
+
 // Private
 @interface ZYQPhoto () {
     // Image Sources
@@ -137,8 +144,8 @@ caption = _caption;
             [self performSelectorInBackground:@selector(loadImageFromFileAsync) withObject:nil];
         } else if (_photoURL) {
             // Load async from web (using SDWebImageManager)
-            if ([self conformsToProtocol:objc_getProtocol("ZYQPhotoCustomDownloadProtocol")]) {
-                [(ZYQPhoto<ZYQPhotoCustomDownloadProtocol>*)self loadImageWithURL:_photoURL updateProgressBlock:^(CGFloat progress) {
+            if ([self conformsToProtocol:objc_getProtocol("ZYQPhotoCustomLoadProtocol")]) {
+                [(ZYQPhoto<ZYQPhotoCustomLoadProtocol>*)self loadImageWithURL:_photoURL updateProgressBlock:^(CGFloat progress) {
                     if (self.progressUpdateBlock) {
                         self.progressUpdateBlock(progress);
                     }
@@ -161,7 +168,12 @@ caption = _caption;
                     }
                 } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
                     if (image) {
-                        self.underlyingImage = image;
+                        if (image.isGIF) {
+                            self.underlyingImage=(UIImage*)[FLAnimatedImage animatedImageWithGIFData:data];
+                        }
+                        else{
+                            self.underlyingImage = image;
+                        }
                     }
                     
                     [self performSelectorOnMainThread:@selector(imageLoadingComplete) withObject:nil waitUntilDone:NO];
@@ -222,7 +234,7 @@ caption = _caption;
 }*/
 
 - (UIImage *)decodedImageWithImage:(UIImage *)image {
-    if (image.images) {
+    if (![image isKindOfClass:[UIImage class]]||image.images) {
         // Do not decode animated images
         return image;
     }
@@ -285,12 +297,28 @@ caption = _caption;
 - (void)loadImageFromFileAsync {
     @autoreleasepool {
         @try {
-            self.underlyingImage = [UIImage imageWithContentsOfFile:_photoPath];
+            if ([self conformsToProtocol:objc_getProtocol("ZYQPhotoCustomLoadProtocol")]) {
+                self.underlyingImage=[(ZYQPhoto<ZYQPhotoCustomLoadProtocol>*)self loadImageWithFile:_photoPath];
+            }
+            else{
+                self.underlyingImage = [UIImage imageWithContentsOfFile:_photoPath];
+#ifdef NODEPENDENCY
+#else
+                NSData *imageData=[NSData dataWithContentsOfFile:_photoPath];
+                if (self.underlyingImage.isGIF||SDImageFormatGIF== [NSData sd_imageFormatForImageData:imageData]) {
+                    self.underlyingImage=(UIImage*)[FLAnimatedImage animatedImageWithGIFData:imageData];
+                }
+                
+#endif
+            }
+
             if (!_underlyingImage) {
-                //ZYQLog(@"Error loading photo from path: %@", _photoPath);
+                ZYQLog(@"Error loading photo from path: %@", _photoPath);
             }
         } @finally {
-            self.underlyingImage = [self decodedImageWithImage: self.underlyingImage];
+            if (![self conformsToProtocol:objc_getProtocol("ZYQPhotoCustomLoadProtocol")]) {
+                self.underlyingImage = [self decodedImageWithImage: self.underlyingImage];
+            }
             [self performSelectorOnMainThread:@selector(imageLoadingComplete) withObject:nil waitUntilDone:NO];
         }
     }

@@ -10,6 +10,7 @@
 #import "ZYQPhotoBrowser.h"
 #import "ZYQZoomingScrollView.h"
 #import <objc/runtime.h>
+#import <libkern/OSAtomic.h>
 
 #ifndef ZYQPhotoBrowserLocalizedStrings
 #define ZYQPhotoBrowserLocalizedStrings(key) \
@@ -153,6 +154,7 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 @synthesize dismissOnTouch = _dismissOnTouch;
 @synthesize actionsSheet = _actionsSheet, activityViewController = _activityViewController;
 @synthesize customBackgroud = _customBackgroud;
+@synthesize gifSupportImageViewClass = _gifSupportImageViewClass;
 @synthesize trackTintColor = _trackTintColor, progressTintColor = _progressTintColor;
 @synthesize delegate = _delegate;
 
@@ -1358,6 +1360,41 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
         if (!_viewIsActive) [self tilePages]; // Force tiling if view is not visible
     }
 }
+
+- (void)setGifSupportImageViewClass:(Class)gifSupportImageViewClass{
+    if (_gifSupportImageViewClass==gifSupportImageViewClass) {
+        return;
+    }
+    _gifSupportImageViewClass=gifSupportImageViewClass;
+    
+    [self zyq_hookOrAddWithOriginSeletor:@selector(touchesEnded:withEvent:) originClass:_gifSupportImageViewClass swizzledSelector:@selector(touchesEnded:withEvent:) swizzledClass:NSClassFromString(@"ZYQTapDetectingImageView")];
+    [self zyq_hookOrAddWithOriginSeletor:@selector(handleSingleTap:) originClass:_gifSupportImageViewClass swizzledSelector:@selector(handleSingleTap:) swizzledClass:NSClassFromString(@"ZYQTapDetectingImageView")];
+    [self zyq_hookOrAddWithOriginSeletor:@selector(handleDoubleTap:) originClass:_gifSupportImageViewClass swizzledSelector:@selector(handleDoubleTap:) swizzledClass:NSClassFromString(@"ZYQTapDetectingImageView")];
+    [self zyq_hookOrAddWithOriginSeletor:@selector(handleTripleTap:) originClass:_gifSupportImageViewClass swizzledSelector:@selector(handleTripleTap:) swizzledClass:NSClassFromString(@"ZYQTapDetectingImageView")];
+    [self zyq_hookOrAddWithOriginSeletor:@selector(setTapDelegate:) originClass:_gifSupportImageViewClass swizzledSelector:@selector(setTapDelegate:) swizzledClass:NSClassFromString(@"ZYQTapDetectingImageView")];
+    [self zyq_hookOrAddWithOriginSeletor:@selector(tapDelegate) originClass:_gifSupportImageViewClass swizzledSelector:@selector(tapDelegate) swizzledClass:NSClassFromString(@"ZYQTapDetectingImageView")];
+
+    
+}
+
+-(void)zyq_hookOrAddWithOriginSeletor:(SEL)originalSelector originClass:(Class)originClass swizzledSelector:(SEL)swizzledSelector swizzledClass:(Class)swizzledClass{
+    
+    Method originalMethod = class_getInstanceMethod(originClass, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(swizzledClass, swizzledSelector);
+    
+    static OSSpinLock aspect_lock = OS_SPINLOCK_INIT;
+    OSSpinLockLock(&aspect_lock);
+    
+    BOOL success = class_addMethod(originClass, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+    if (success) {
+        class_replaceMethod(originClass, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+    OSSpinLockUnlock(&aspect_lock);
+    
+}
+
 
 #pragma mark - Buttons
 

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		176C385D83CCCDEC492FF976 /* libPods-PhotoBrowserDemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 409A2E7CFABD7FB125878A7F /* libPods-PhotoBrowserDemoUITests.a */; };
 		53664FB71040C2F38590D48D /* libPods-PhotoBrowserDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCA928EA472E513582DE74B /* libPods-PhotoBrowserDemoTests.a */; };
+		8426F2131EFCF193002E5196 /* photo5l.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8426F2121EFCF193002E5196 /* photo5l.gif */; };
+		8426F2141EFCFF9E002E5196 /* photo5l.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8426F2121EFCF193002E5196 /* photo5l.gif */; };
 		84549B1E1EFA48D600888AD8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84549B1D1EFA48D600888AD8 /* main.m */; };
 		84549B211EFA48D600888AD8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84549B201EFA48D600888AD8 /* AppDelegate.m */; };
 		84549B241EFA48D600888AD8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84549B231EFA48D600888AD8 /* ViewController.m */; };
@@ -94,6 +96,7 @@
 		5B7995E88C375E65649529E8 /* Pods-PhotoBrowserDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBrowserDemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBrowserDemoUITests/Pods-PhotoBrowserDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCA928EA472E513582DE74B /* libPods-PhotoBrowserDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PhotoBrowserDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7817F37A75CBBCCB2B385651 /* Pods-PhotoBrowserCustomCoreDemo.custom.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBrowserCustomCoreDemo.custom.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBrowserCustomCoreDemo/Pods-PhotoBrowserCustomCoreDemo.custom.xcconfig"; sourceTree = "<group>"; };
+		8426F2121EFCF193002E5196 /* photo5l.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = photo5l.gif; sourceTree = "<group>"; };
 		84549B191EFA48D600888AD8 /* PhotoBrowserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBrowserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84549B1D1EFA48D600888AD8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		84549B1F1EFA48D600888AD8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 				84549B7D1EFA8A8B00888AD8 /* photo3m.jpg */,
 				84549B7E1EFA8A8B00888AD8 /* photo4l.jpg */,
 				84549B7F1EFA8A8B00888AD8 /* photo4m.jpg */,
+				8426F2121EFCF193002E5196 /* photo5l.gif */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -474,6 +478,7 @@
 				84549B271EFA48D600888AD8 /* Main.storyboard in Resources */,
 				84549B841EFA8A8B00888AD8 /* PhotoBrowser_customArrowRight.png in Resources */,
 				84549B821EFA8A8B00888AD8 /* PhotoBrowser_customArrowLeftSelected.png in Resources */,
+				8426F2131EFCF193002E5196 /* photo5l.gif in Resources */,
 				84549B881EFA8A8B00888AD8 /* PhotoBrowser_customDoneButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,6 +520,7 @@
 				84549BAB1EFBC1A600888AD8 /* PhotoBrowser_customArrowLeftSelected@2x.png in Resources */,
 				84549BAC1EFBC1A600888AD8 /* PhotoBrowser_customArrowRight@2x.png in Resources */,
 				84549BAD1EFBC1A600888AD8 /* photo4m.jpg in Resources */,
+				8426F2141EFCFF9E002E5196 /* photo5l.gif in Resources */,
 				84549BAE1EFBC1A600888AD8 /* Main.storyboard in Resources */,
 				84549BAF1EFBC1A600888AD8 /* PhotoBrowser_customArrowRight.png in Resources */,
 				84549BB01EFBC1A600888AD8 /* PhotoBrowser_customArrowLeftSelected.png in Resources */,
@@ -876,6 +882,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhotoBrowserDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhotoBrowserDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -888,6 +895,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhotoBrowserDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhotoBrowserDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -950,6 +958,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "PhotoBrowserDemo copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhotoBrowserCustomCoreDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -962,6 +971,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "PhotoBrowserDemo copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhotoBrowserCustomCoreDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1022,6 +1032,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PhotoBrowserDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhotoBrowserDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1065,6 +1076,7 @@
 					"CUSTOM=2",
 				);
 				INFOPLIST_FILE = "PhotoBrowserDemo copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PhotoBrowserCustomCoreDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

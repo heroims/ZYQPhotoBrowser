@@ -45,7 +45,12 @@
 		[self addSubview:_tapView];
         
 		// Image view
-		_photoImageView = [[ZYQTapDetectingImageView alloc] initWithFrame:CGRectZero];
+        Class myTapDetectingImageViewClass=[ZYQTapDetectingImageView class];
+        if (browser.gifSupportImageViewClass) {
+            myTapDetectingImageViewClass=browser.gifSupportImageViewClass;
+        }
+        
+		_photoImageView = [[myTapDetectingImageViewClass alloc] initWithFrame:CGRectZero];
 		_photoImageView.tapDelegate = self;
 		_photoImageView.backgroundColor = [UIColor clearColor];
 		[self addSubview:_photoImageView];

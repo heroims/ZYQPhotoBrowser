@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @protocol ZYQTapDetectingImageViewDelegate;
+#ifdef NODEPENDENCY
+@interface ZYQTapDetectingImageView : UIImageView
+#else
+#import "FLAnimatedImageView.h"
+@interface ZYQTapDetectingImageView : FLAnimatedImageView
+#endif
 
-@interface ZYQTapDetectingImageView : UIImageView {
-	id <ZYQTapDetectingImageViewDelegate> __weak tapDelegate;
-}
 @property (nonatomic, weak) id <ZYQTapDetectingImageViewDelegate> tapDelegate;
 - (void)handleSingleTap:(UITouch *)touch;
 - (void)handleDoubleTap:(UITouch *)touch;
