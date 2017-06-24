@@ -6,7 +6,9 @@ We've added both user experience and technical features inspired by Facebook's a
 
 ## Screenshots
 
+![Screenshot1](http://heroims.github.io/ZYQPhotoBrowser/Untitled1.gif "Screenshot1") 
 
+![Screenshot2](http://heroims.github.io/ZYQPhotoBrowser/Untitled2.gif "Screenshot1") 
 
 ## Usage
 
@@ -121,6 +123,10 @@ Dismiss the photo browser with a touch (instead of showing/hiding controls):
 ``` objective-c
 browser.dismissOnTouch = YES;
 ```
+You can use custom backgroud
+``` objective-c
+browser.customBackgroud=[[BackgroudBlurView alloc] init];
+```
 
 ### Photo Captions
 
@@ -148,6 +154,117 @@ Example delegate method for custom caption view:
 	return captionView;
 }
 ```
+#### Custom  Opensource libraries
+You need to implement protocol
+``` objective-c
+//ZYQPhotoBrowser's
+@protocol ZYQPhotoBrowserCustomProtocol <NSObject>
+
+@required
+- (void)custom_animateView:(UIView *)view toFrame:(CGRect)frame completion:(void (^)(void))completion;
+
+@end
+
+//ZYQPhoto's
+@protocol ZYQPhotoCustomLoadProtocol <NSObject>
+
+@required
+-(void)loadImageWithURL:(NSURL*)url updateProgressBlock:(void (^)(CGFloat progress))updateProgressBlock completedBlock:(void (^)(UIImage *image,NSError *error))completedBlock;
+-(id)loadImageWithFile:(NSString *)path;
+
+@end
+
+//ZYQZoomingScrollView's
+@class ZYQPhotoBrowser;
+@protocol ZYQZoomingScrollViewCustomProtocol <NSObject>
+
+@required
+-(id)getCustomProgressViewWithBrowser:(ZYQPhotoBrowser*)browser;
+
+@end
+
+//Your ProgressView's
+@protocol ZYQProgressViewProtocol <NSObject>
+
+@required
+@property(nonatomic,assign)CGFloat zyq_progress;
+
+@end
+
+```
+Example
+
+add `pod 'YYWebImage'` to your Podfile.
+
+``` objective-c
+
+@interface ZYQPhoto (Custom)<ZYQPhotoCustomLoadProtocol>
+
+@end
+
+@implementation ZYQPhoto (Custom)
+
+-(void)loadImageWithURL:(NSURL*)url updateProgressBlock:(void (^)(CGFloat progress))updateProgressBlock completedBlock:(void (^)(UIImage *image,NSError *error))completedBlock{
+    [[YYWebImageManager sharedManager] requestImageWithURL:url options:YYWebImageOptionAllowBackgroundTask progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        if (updateProgressBlock) {
+            updateProgressBlock(receivedSize/expectedSize*1.0);
+        }
+    } transform:nil completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+        if (completedBlock) {
+            completedBlock(image,error);
+        }
+    }];
+}
+
+-(id)loadImageWithFile:(NSString *)path{
+    return [YYImage imageWithContentsOfFile:path];
+}
+
+@end
+
+@interface ZYQZoomingScrollView (Custom)<ZYQZoomingScrollViewCustomProtocol>
+
+@end
+
+@implementation ZYQZoomingScrollView (Custom)
+
+-(id)getCustomProgressViewWithBrowser:(ZYQPhotoBrowser *)browser{
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenBound.size.width;
+    CGFloat screenHeight = screenBound.size.height;
+
+    DACircularProgressView *tmpProgressView = [[DACircularProgressView alloc] initWithFrame:CGRectMake((screenWidth-35.)/2., (screenHeight-35.)/2, 35.0f, 35.0f)];
+    [tmpProgressView setProgress:0.0f];
+    tmpProgressView.tag = 101;
+    tmpProgressView.thicknessRatio = 0.1;
+    tmpProgressView.roundedCorners = NO;
+    tmpProgressView.trackTintColor    = browser.trackTintColor    ? browser.trackTintColor    : [UIColor colorWithWhite:0.2 alpha:1];
+    tmpProgressView.progressTintColor = browser.progressTintColor ? browser.progressTintColor : [UIColor colorWithWhite:1.0 alpha:1];
+    
+    _progressView=tmpProgressView;
+    
+    return tmpProgressView;
+}
+
+@end
+
+@interface DACircularProgressView (Custom)<ZYQProgressViewProtocol>
+
+@end
+
+@implementation DACircularProgressView (Custom)
+
+-(void)setZyq_progress:(CGFloat)zyq_progress{
+    [self setProgress:zyq_progress animated:YES];
+}
+
+-(CGFloat)zyq_progress{
+    return [self progress];
+}
+
+@end
+```
+
 
 ## Adding to your project
 
