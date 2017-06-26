@@ -100,4 +100,7 @@
 // Get ZYQPhoto at index
 - (id<ZYQPhoto>)photoAtIndex:(NSUInteger)index;
 
+// Get Photos
+@property(nonatomic,readonly)NSArray *photos;
+
 @end

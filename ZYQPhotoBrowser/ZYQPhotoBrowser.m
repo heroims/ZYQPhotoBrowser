@@ -1350,6 +1350,10 @@ NSLocalizedStringFromTableInBundle((key), nil, [NSBundle bundleWithPath:[[NSBund
 
 #pragma mark - Properties
 
+-(NSArray *)photos{
+    return _photos;
+}
+
 - (void)setInitialPageIndex:(NSUInteger)index {
     // Validate
     if (index >= [self numberOfPhotos]) index = [self numberOfPhotos]-1;

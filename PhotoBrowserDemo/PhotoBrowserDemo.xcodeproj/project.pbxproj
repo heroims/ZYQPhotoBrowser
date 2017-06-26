@@ -134,7 +134,6 @@
 		84549B7E1EFA8A8B00888AD8 /* photo4l.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo4l.jpg; sourceTree = "<group>"; };
 		84549B7F1EFA8A8B00888AD8 /* photo4m.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = photo4m.jpg; sourceTree = "<group>"; };
 		84549BB71EFBC1A600888AD8 /* PhotoBrowserCustomCoreDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBrowserCustomCoreDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		84549BB81EFBC1A700888AD8 /* PhotoBrowserDemo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PhotoBrowserDemo copy-Info.plist"; path = "/Volumes/MacUse/ZYQPhotoBrowser/PhotoBrowserDemo/PhotoBrowserDemo copy-Info.plist"; sourceTree = "<absolute>"; };
 		84549BB91EFBCE1700888AD8 /* ZYQPhotoBrowser+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZYQPhotoBrowser+Custom.h"; sourceTree = "<group>"; };
 		84549BBA1EFBCE1700888AD8 /* ZYQPhotoBrowser+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZYQPhotoBrowser+Custom.m"; sourceTree = "<group>"; };
 		84F5FBAF978E2ACD14D22680 /* Pods-PhotoBrowserDemoTests.custom.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBrowserDemoTests.custom.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBrowserDemoTests/Pods-PhotoBrowserDemoTests.custom.xcconfig"; sourceTree = "<group>"; };
@@ -194,7 +193,6 @@
 				84549B1A1EFA48D600888AD8 /* Products */,
 				C4E3045F6DBE8A531B6884BE /* Pods */,
 				AC78E26E725036566A840A49 /* Frameworks */,
-				84549BB81EFBC1A700888AD8 /* PhotoBrowserDemo copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
