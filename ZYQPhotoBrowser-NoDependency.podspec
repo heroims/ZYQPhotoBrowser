@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name          =  "ZYQPhotoBrowser-NoDependency"
   s.summary       =  "Photo Browser / Viewer inspired by Facebook's and Tweetbot's with ARC support, swipe-to-dismiss, image progress and more."
-  s.version       =  "1.0"
+  s.version       =  "1.1"
   s.homepage      =  "https://github.com/heroims/ZYQPhotoBrowser"
   s.license       =  { :type => 'MIT', :file => 'README.md' }
   s.author        =  { "Eduardo Callado" => "eduardo_tasker@hotmail.com" }
